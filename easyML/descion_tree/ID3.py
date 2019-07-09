@@ -18,7 +18,7 @@ class ID3:
             raise Exception
 
         # 统计数据集D中的K个类及每个类的的数量|Ck|
-        if type(labels) != np.array:
+        if not isinstance(labels, np.ndarray):
             labels_array = np.array(labels)
         else:
             labels_array = labels
@@ -35,14 +35,15 @@ class ID3:
 
         return shannon_entropy
 
-    def _split_dateset(self, dataset, feature_index, vlaue):
-        match_sample_index = np.where(dataset[:, feature_index] == vlaue)
-        subdataset = np.delete(dataset, match_sample_index, 0)
+    def _split_dateset(self, dataset, feature_index, value):
+        match_sample_index = np.where(dataset[:, feature_index] == value)
+        match_samples = dataset[match_sample_index]
+        subdataset = np.delete(match_samples, feature_index, 1)
         return subdataset
 
     def _split_labels(self, dataset, labels, feature_index, vlaue):
         match_sample_index = np.where(dataset[:, feature_index] == vlaue)
-        subdataset_labels = np.delete(labels, match_sample_index, 0)
+        subdataset_labels = labels[match_sample_index]
         return subdataset_labels
 
     def _calc_conditional_entropy(self, dataset, labels, feature_index):
@@ -132,9 +133,6 @@ class ID3:
     def _classify(self, tree, dataset):
         feature_index = list(tree)[0]
         sub_tree = self.tree_[feature_index]
-
-        #TODO: not right
-        samples_feature = dataset[:, feature_index]
         labels = self._classify(sub_tree, dataset)
         return labels
 
