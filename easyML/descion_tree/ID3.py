@@ -8,10 +8,12 @@ class ID3:
 
     def _calc_shannon_entropy(self, dataset, labels):
         '''
-        calculate shannon entropy form data set and labels
-        :param dataset: numpy.array, data set
-        :param labels: list,tuple,numpy.array samples' labels
-        :return: float, shannon entropy
+        Calculate shannon entropy form data set and labels
+        Parameter
+            dataset: numpy.array, data set
+            labels: list,tuple,numpy.array samples' labels
+        Returns
+            shannon entropy: float
         '''
         if dataset.shape[0] != len(labels):
             print("dataset length doesn't equal with labels")
@@ -49,7 +51,8 @@ class ID3:
     def _calc_conditional_entropy(self, dataset, labels, feature_index):
         '''
         calculate conditional entropy H(D|A), D is dataset, A is the feature
-        :return: float, conditional entropy H(D|A)
+        Returns
+            conditional entropy H(D|A): float
         '''
         feature_values = dataset[:, feature_index]
         unique_feature_values = np.unique(feature_values)
@@ -65,13 +68,16 @@ class ID3:
         return new_conditional_entropy
 
     def _calc_entropy_gain(self, conditional_entropy, shannon_entropy):
-        return conditional_entropy - shannon_entropy
+        return  shannon_entropy - conditional_entropy
 
     def _choose_best_feature(self, dataset, labels):
         '''
-        choose out base feature from current dataset
-        :param dataset: numpy.array
-        :return: int, best feature index
+        Choose out base feature from current dataset
+        Parameters
+            dataset: numpy.array
+
+        Returns
+            best feature index: int
         '''
         feature_nums = dataset.shape[1]
         shannon_entropy = self._calc_shannon_entropy(dataset, labels)
@@ -90,11 +96,15 @@ class ID3:
 
     def _find_max_class(self, labels):
         '''
-        find out max class in the labels
-        :param labels: numpy.array
-        :return: max count label
+        Find out max class in the labels
+
+        Parameters
+            labels: numpy.array
+
+        Returns:
+            max count label
         '''
-        unique_labels = np.unique(labels)[-1]
+        unique_labels = np.unique(labels)
 
         max_class = unique_labels[0]
         max_count = 0
@@ -120,9 +130,15 @@ class ID3:
         unique_feature_values = np.unique(feature_values)
 
         for feature_value in unique_feature_values:
-            sub_dataset = self._split_dateset(dataset, best_feature_index, feature_value)
-            sub_dataset_label = self._split_labels(dataset, labels, best_feature_index, feature_value)
-            tree[best_feature_index][feature_value] = self._create_tree(sub_dataset, sub_dataset_label)
+            sub_dataset = self._split_dateset(dataset,
+                                              best_feature_index,
+                                              feature_value)
+            sub_dataset_label = self._split_labels(dataset,
+                                                   labels,
+                                                   best_feature_index,
+                                                   feature_value)
+            tree[best_feature_index][feature_value] = self._create_tree(sub_dataset,
+                                                                        sub_dataset_label)
 
         return tree
 
