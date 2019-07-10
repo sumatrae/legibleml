@@ -88,3 +88,44 @@ def test_conditional_entropy():
     algo = ID3()
     conditional_entropy = algo._calc_conditional_entropy(dataset, labels, 0)
     assert conditional_entropy == 0
+
+    dataset = np.array([[1, 1, 0],
+                        [0, 1, 0],
+                        [1, 1, 1]])
+    labels = np.array([0, 0, 1])
+    conditional_entropy = algo._calc_conditional_entropy(dataset, labels, 0)
+
+    target_entropy = 1 / 3 * (-1 * math.log(1)) + 2 / 3 * (-1 / 2 * math.log(1 / 2) * 2)
+    assert math.isclose(conditional_entropy, target_entropy)
+
+
+def test_find_max_class():
+    algo = ID3()
+
+    labels = np.array([0])
+    max_label = algo._find_max_class(labels)
+    assert max_label == 0
+
+    labels = np.array([0, 0, 1])
+    max_label = algo._find_max_class(labels)
+    assert  max_label == 0
+
+    labels = np.array([0, 1, 1])
+    max_label = algo._find_max_class(labels)
+    assert max_label == 1
+
+    labels = np.array([0, 1, 1, 2, 2, 2])
+    max_label = algo._find_max_class(labels)
+    assert max_label == 2
+
+def test_choose_best_feature():
+    algo = ID3()
+
+    dataset = np.array([[1, 1, 0],
+                        [0, 1, 0],
+                        [1, 1, 1]])
+    labels = np.array([0, 0, 1])
+
+    best_feature = algo._choose_best_feature(dataset, labels)
+
+    assert best_feature == 2
