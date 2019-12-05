@@ -68,7 +68,7 @@ class ID3:
         return new_conditional_entropy
 
     def _calc_entropy_gain(self, conditional_entropy, shannon_entropy):
-        return  shannon_entropy - conditional_entropy
+        return shannon_entropy - conditional_entropy
 
     def _choose_best_feature(self, dataset, labels):
         '''

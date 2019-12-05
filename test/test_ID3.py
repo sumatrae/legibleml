@@ -125,7 +125,18 @@ def test_choose_best_feature():
                         [0, 1, 0],
                         [1, 1, 1]])
     labels = np.array([0, 0, 1])
-
     best_feature = algo._choose_best_feature(dataset, labels)
-
     assert best_feature == 2
+
+def test_create_tree():
+    algo = ID3()
+
+    dataset = np.array([[1, 1, 0],
+                        [0, 1, 0],
+                        [1, 1, 1]])
+    labels = np.array([0, 0, 1])
+    tree = algo._create_tree(dataset, labels)
+    #assert tree == 2
+
+
+
