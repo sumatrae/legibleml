@@ -3,3 +3,6 @@
 *.pyd
 __pycache__
 .idea
+/dist/*
+/legibleml.egg-info/*
+/build/*
