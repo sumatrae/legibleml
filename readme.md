@@ -1,4 +1,4 @@
-# Legible learn
+# Legible machine learning
 
 This is an easy practice of the common machine learning algorithms.  
 The code page is [https://github.com/sumatrae/legiblelearn]().
