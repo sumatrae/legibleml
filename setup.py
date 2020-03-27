@@ -11,7 +11,7 @@ setuptools.setup(
     description="A easy practice of machine learning algorithm ",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/sumatrae/legible",
+    url="https://github.com/sumatrae/legibleml",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
